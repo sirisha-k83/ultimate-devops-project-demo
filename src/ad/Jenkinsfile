@@ -41,14 +41,13 @@ pipeline {
     }
 }
 
-    stage('TRIVY FS Scan') {
-      steps {
-        sh '''
-        mkdir -p /tmp/trivy-cache
-       /snap/bin/trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL --exit-code 0 --no-progress .
-         '''
-      }
-        }
+   stage('TRIVY FS Scan') {
+  steps {
+    sh '''
+      trivy fs --severity HIGH,CRITICAL --exit-code 0 --no-progress . > trivyfs.txt
+    '''
+  }
+}
         stage('Docker Build & Push') {
             steps {
                 dir('src/ad') {
