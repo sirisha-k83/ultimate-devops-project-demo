@@ -14,23 +14,32 @@ pipeline {
             }
         }
 
-        stage('Build & SonarQube Analysis') {
-            environment {
-                SONAR_TOKEN = credentials('sonar_token')
-            }
-            steps {
-                dir('src/ad') {
-                    withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                        sh """
-                            ./gradlew clean build sonar \
-                            -Dsonar.projectKey=ad \
-                            -Dsonar.projectName=ad \
-                            -Dsonar.login=$SONAR_TOKEN
-                        """
-                    }
-                }
+      stage('Build') {
+           steps {
+             dir('src/ad') {
+             sh './gradlew clean build'
+        }
+    }
+}
+       stage('SonarQube Analysis') {
+        environment {
+        SONAR_TOKEN = credentials('sonar_token')
+         }
+        steps {
+        dir('src/ad') {
+            withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                sh """
+                    sonar-scanner \
+                    -Dsonar.projectKey=ad \
+                    -Dsonar.projectName=ad \
+                    -Dsonar.login=$SONAR_TOKEN \
+                    -Dsonar.host.url=${env.SONAR_HOST_URL}
+                """
             }
         }
+    }
+}
+
 
         stage('Security Scan (Trivy)') {
             steps {
