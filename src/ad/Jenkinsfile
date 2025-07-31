@@ -33,6 +33,7 @@ pipeline {
                     -Dsonar.projectKey=ad \
                     -Dsonar.projectName=ad \
                     -Dsonar.login=$SONAR_TOKEN \
+                    -Dsonar.sources=. \
                     -Dsonar.host.url=${env.SONAR_HOST_URL}
                 """
             }
