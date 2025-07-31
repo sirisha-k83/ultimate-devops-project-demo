@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONARQUBE_SERVER = 'sonar_server'
         TRIVY_SEVERITY = 'HIGH,CRITICAL'
-        DOCKER_IMAGE = "myregistry/payment-service:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "sirishak83/ad:${BUILD_NUMBER}"
     }
 
     stages {
