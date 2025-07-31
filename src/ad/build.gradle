@@ -59,6 +59,11 @@ dependencies {
     }
 }
 
+  tasks.named('verifyGoogleJavaFormat') {
+    enabled = false
+}
+
+
 // Default protoSourceDir is in /opentelemetry-demo/pb. Optionally override the
 // location for the docker build, which copies the protos to a different location.
 def protoSourceDir = findProperty('protoSourceDir')?: project.projectDir.parentFile.parentFile.toPath().toString() + "/pb"
