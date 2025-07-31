@@ -42,16 +42,11 @@ pipeline {
 }
 
 
-        stage('Security Scan (Trivy)') {
-        steps {
-           sh '''
-            mkdir -p /tmp/trivy-cache
-            XDG_CACHE_HOME=/tmp/trivy-cache trivy fs --severity HIGH,CRITICAL --exit-code 0 --no-progress .
-            '''
-       }
-   }
-
-
+      stage('TRIVY FS Scan') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"  // Results stored in a text file
+            }
+        }
         stage('Docker Build & Push') {
             steps {
                 dir('src/ad') {
