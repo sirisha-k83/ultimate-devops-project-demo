@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        go 'Go-1.22'
+    }
 
     environment {
         SONARQUBE_SERVER = 'sonar_server'
