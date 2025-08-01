@@ -13,7 +13,18 @@ pipeline {
                 git credentialsId: 'Git_credentials', url: 'https://github.com/sirisha-k83/ultimate-devops-project-demo.git', branch: 'main'
             }
         }
-    stage('Build') {
+      stage('Install Go 1.22') {
+       steps {
+         sh '''
+            wget https://go.dev/dl/go1.22.3.linux-amd64.tar.gz
+            sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.3.linux-amd64.tar.gz
+            export PATH=$PATH:/usr/local/go/bin
+            go version
+        '''
+    }
+}
+   
+      stage('Build') {
        steps {
         dir('src/product-catalog') {
             sh 'go mod tidy'  // Optional: ensures dependencies are in place
