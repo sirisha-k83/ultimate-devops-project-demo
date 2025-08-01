@@ -45,8 +45,8 @@ stage('SonarQube Analysis') {
             withSonarQubeEnv("${SONARQUBE_SERVER}") {
                 sh '''
                     sonar-scanner \
-                    -Dsonar.projectKey=product-catalog \
-                    -Dsonar.projectName=product-catalog \
+                    -Dsonar.projectKey=Product-catalog\
+                    -Dsonar.projectName=Product-catalog \
                     -Dsonar.sources=. \
                     -Dsonar.login=$SONAR_TOKEN
                 '''
